@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -12,8 +13,16 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
+                    Intent intent;
+
                     sleep(1000);
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    if(false) {
+                        intent = new Intent(SplashActivity.this, MainActivity.class);
+                    }
+                    else {
+                        intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    }
+
                     startActivity(intent);
                     finish();
 
