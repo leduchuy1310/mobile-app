@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/green_color"
+        android:iconTintMode="screen"
+        android:title="@string/btn_home"
+        app:showAsAction="always"/>
+    <item
+        android:title="@string/btn_cate"
+        android:id="@+id/action_cate"
+        android:icon="@drawable/ic_cate"
+        android:iconTintMode="screen"
+        android:iconTint="@color/green_color"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_cart"
+        android:title="@string/btn_cart"
+        android:icon="@drawable/ic_cart"
+        android:iconTintMode="screen"
+        android:iconTint="@color/green_color"
+        app:showAsAction="always"/>
+</menu>

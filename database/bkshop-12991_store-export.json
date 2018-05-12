@@ -1,0 +1,19 @@
+{
+  "advertisement" : [ null, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_1.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_2.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_3.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_4.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_5.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_6.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_7.png"
+  }, {
+    "image" : "gs://bkshop-12991.appspot.com/phones/phone_8.png"
+  } ]
+}

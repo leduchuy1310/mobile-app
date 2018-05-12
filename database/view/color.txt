@@ -1,0 +1,7 @@
+#green: #009E0F
+#blue: 2A78E4
+#xam: 676666
+#do: E06666
+#vang: FFFF72
+#cam:F9C08C
+#timxanh:351D75

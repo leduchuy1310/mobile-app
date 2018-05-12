@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "733030898715",
+    "firebase_url": "https://bkshop-12991.firebaseio.com",
+    "project_id": "bkshop-12991",
+    "storage_bucket": "bkshop-12991.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733030898715:android:9faa9e21b778bddc",
+        "android_client_info": {
+          "package_name": "com.ntvi.bkshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733030898715-23a49dsorob3df39or0bf51svifu9g76.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ntvi.bkshop",
+            "certificate_hash": "2b0c37820f468f0d33f1584dcc74858fcf0d8eed"
+          }
+        },
+        {
+          "client_id": "733030898715-c9m1f89bgsi6r6sopnd5u94n27d2bo2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyeecl3yqY0HKErD4ZK87AUQqyW8t34qQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733030898715-c9m1f89bgsi6r6sopnd5u94n27d2bo2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

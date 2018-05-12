@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BKShop</string>
+    <string name="app_tittle">Shop</string>
+    <string name="btn_search">Search</string>
+    <string name="btn_user">User</string>
+    <string name="btn_home">Home</string>
+    <string name="btn_cate">Danh mục</string>
+    <string name="btn_cart">Giỏ hàng</string>
+    <string name="action_settings">Setting</string>
+
+</resources>
