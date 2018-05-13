@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManagerNonConfig;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.ntvi.bkshop.fragment.FragmentCatelogy;
 import com.ntvi.bkshop.model.Advertisement;
 
 import com.ntvi.bkshop.R;
@@ -54,14 +56,28 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        init();
+        // TEST CATELOGY;
+        
+        catelogy();
+        //init();
 
-        ToolBarAction();
+      // ToolBarAction();
 
 
 
-        ViewFlipperOnRun();
+      // ViewFlipperOnRun();
     }
+
+    private void catelogy() {
+
+        android.app.FragmentManager  fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        FragmentCatelogy fragmentCatelogy = new FragmentCatelogy();
+        fragmentTransaction.add(R.id.activity_main, fragmentCatelogy);
+        fragmentTransaction.commit();
+    }
+
     private void init(){
 
         viewPager =(ViewPager)findViewById(R.id.viewPager_main) ;

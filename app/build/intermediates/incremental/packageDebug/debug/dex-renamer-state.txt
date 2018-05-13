@@ -1,0 +1,4 @@
+#Sat Apr 14 17:22:50 ICT 2018
+base.0=C\:\\Users\\leona\\Documents\\GitHub\\mobile-app\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex

@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
                     Intent intent;
 
                     sleep(1000);
-                    if(false) {
+                    if(true) {
                         intent = new Intent(SplashActivity.this, MainActivity.class);
                     }
                     else {
