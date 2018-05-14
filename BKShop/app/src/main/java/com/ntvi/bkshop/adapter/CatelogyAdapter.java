@@ -2,6 +2,7 @@ package com.ntvi.bkshop.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,13 @@ public class CatelogyAdapter extends RecyclerView.Adapter<CatelogyAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtName.setText(catelogyRows.get(position).getmName());
         Picasso.with(context).load(catelogyRows.get(position).getmImage()).into(holder.imgHinh);
+
+        holder.recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(holder
+                .recyclerView.getContext(),LinearLayoutManager.HORIZONTAL,false);
+        holder.recyclerView.setLayoutManager(layoutManager);
+
+        holder.recyclerView.setAdapter(new ProductAdapter((ArrayList<Product>) catelogyRows.get(position).getmProducts(),context.getApplicationContext()));
     }
 
     @Override

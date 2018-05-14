@@ -13,13 +13,13 @@
         <ImageView
             android:layout_width="88dp"
             android:layout_height="88dp"
-            android:id="@+id/img_Image"
+            android:id="@+id/img_Catelogy_Item_Avatar"
             android:src="@drawable/common_google_signin_btn_icon_dark"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:id="@+id/txt_Name"
+            android:id="@+id/txt_Catelogy_Item_Name"
             android:layout_marginStart="4dp"
             android:text="Item"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
@@ -32,12 +32,13 @@
            <TextView
                android:layout_width="66dp"
                android:layout_height="wrap_content"
-               android:id="@+id/txt_Prices"
+               android:id="@+id/txt_Catelogy_Item_Prices"
                android:text="999.999"
 
                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                android:textSize="12sp"/>
            <ImageButton
+               android:background="@null"
                android:layout_width="22dp"
                android:layout_height="22dp"
                android:scaleType="fitCenter"

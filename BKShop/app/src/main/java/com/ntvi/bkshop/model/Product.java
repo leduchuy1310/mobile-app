@@ -1,25 +1,17 @@
 package com.ntvi.bkshop.model;
 
 public class Product {
-    private int mId;
     private String mName;
-    private float mPrice;
+    private double mPrice;
     private String mImage;
 
-    public Product(int mId, String mName, float mPrice, String mImage) {
-        this.mId = mId;
+    public Product( String mName, double mPrice, String mImage) {
+
         this.mName = mName;
         this.mPrice = mPrice;
         this.mImage = mImage;
     }
 
-    public int getmId() {
-        return mId;
-    }
-
-    public void setmId(int mId) {
-        this.mId = mId;
-    }
 
     public String getmName() {
         return mName;
@@ -29,11 +21,11 @@ public class Product {
         this.mName = mName;
     }
 
-    public float getmPrice() {
+    public double getmPrice() {
         return mPrice;
     }
 
-    public void setmPrice(float mPrice) {
+    public void setmPrice(double mPrice) {
         this.mPrice = mPrice;
     }
 

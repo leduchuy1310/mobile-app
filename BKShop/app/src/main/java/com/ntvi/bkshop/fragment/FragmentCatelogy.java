@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 
 import com.ntvi.bkshop.R;
 import com.ntvi.bkshop.adapter.CatelogyAdapter;
+import com.ntvi.bkshop.adapter.ProductAdapter;
 import com.ntvi.bkshop.model.CatelogyRow;
+import com.ntvi.bkshop.model.Product;
 
 import java.util.ArrayList;
 
@@ -33,31 +35,47 @@ public class FragmentCatelogy extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
+
+        ArrayList<CatelogyRow> arrayList = getListCatelogy();
+
+        CatelogyAdapter catelogyAdapter = new CatelogyAdapter(arrayList, getActivity().getApplicationContext());
+        recyclerView.setAdapter(catelogyAdapter);
+
+
+
+    }
+
+    private ArrayList<CatelogyRow> getListCatelogy(){
+        ArrayList<Product> Listapp = getListCatelogy_item();
         ArrayList<CatelogyRow> arrayList = new ArrayList<>();
 
 
         // dữ liệu test
         arrayList.add(new CatelogyRow("Điện thoại",
                 "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                null));
+                Listapp));
         arrayList.add(new CatelogyRow("Máy tính",
                 "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                null));
+                Listapp));
 
         arrayList.add(new CatelogyRow("Quần áo",
                 "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                null));
+                Listapp));
 
         arrayList.add(new CatelogyRow("Điện thoại",
                 "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                null));
+                Listapp));
 
+        return arrayList;
 
-
-
-
-
-        CatelogyAdapter catelogyAdapter = new CatelogyAdapter(arrayList, getActivity().getApplicationContext());
-        recyclerView.setAdapter(catelogyAdapter);
     }
+    private ArrayList<Product> getListCatelogy_item(){
+        ArrayList<Product> arrayList = new ArrayList<>();
+        arrayList.add(new Product("aaa", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
+        arrayList.add(new Product("bbb", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
+        arrayList.add(new Product("aaa", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
+        arrayList.add(new Product("ccc", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
+        arrayList.add(new Product("ddd", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
+        return  arrayList;
+    };
 }
