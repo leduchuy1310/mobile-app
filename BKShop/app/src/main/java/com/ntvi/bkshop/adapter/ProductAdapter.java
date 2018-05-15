@@ -38,7 +38,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtName.setText(productList.get(position).getmName());
         holder.txtPrices.setText(String.valueOf(productList.get(position).getmPrice()));
-        Picasso.with(context).load(productList.get(position).getmImage()).into(holder.imgAvatar);
+        Picasso.with(context).load(productList.get(position).getmImage()).
+                error(R.drawable.common_google_signin_btn_icon_dark).
+                into(holder.imgAvatar);
 
     }
 

@@ -7,6 +7,9 @@ public class CatelogyRow {
     private String mImage;
     private List <Product> mProducts;
 
+    public CatelogyRow() {
+    }
+
     public CatelogyRow(String mName, String mImage, List<Product> mProducts) {
         this.mName = mName;
         this.mImage = mImage;

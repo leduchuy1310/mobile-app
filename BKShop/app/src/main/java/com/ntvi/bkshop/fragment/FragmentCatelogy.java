@@ -10,7 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ntvi.bkshop.R;
 import com.ntvi.bkshop.adapter.CatelogyAdapter;
 import com.ntvi.bkshop.adapter.ProductAdapter;
@@ -36,39 +42,59 @@ public class FragmentCatelogy extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        ArrayList<CatelogyRow> arrayList = getListCatelogy();
+        final ArrayList<CatelogyRow> arrayList = new ArrayList<>();
 
-        CatelogyAdapter catelogyAdapter = new CatelogyAdapter(arrayList, getActivity().getApplicationContext());
+        // Set Recycleview
+        final CatelogyAdapter catelogyAdapter = new CatelogyAdapter(arrayList, getActivity().getApplicationContext());
         recyclerView.setAdapter(catelogyAdapter);
 
+        // Set List products
+        final ArrayList<Product> Listapp = getListCatelogy_item();
+
+        // Get data
+
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+
+        mData.child("products").addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                CatelogyRow catelogyRow =dataSnapshot.getValue(CatelogyRow.class);
+                arrayList.add(new CatelogyRow(catelogyRow.getmName(),
+                        catelogyRow.getmImage(),
+                        Listapp));
+
+                catelogyAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
 
 
     }
 
-    private ArrayList<CatelogyRow> getListCatelogy(){
-        ArrayList<Product> Listapp = getListCatelogy_item();
-        ArrayList<CatelogyRow> arrayList = new ArrayList<>();
-
-
-        // dữ liệu test
-        arrayList.add(new CatelogyRow("Điện thoại",
-                "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                Listapp));
-        arrayList.add(new CatelogyRow("Máy tính",
-                "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                Listapp));
-
-        arrayList.add(new CatelogyRow("Quần áo",
-                "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                Listapp));
-
-        arrayList.add(new CatelogyRow("Điện thoại",
-                "http://наклейка52.рф/images/product/s/1192651c35.jpg",
-                Listapp));
-
-        return arrayList;
-
-    }
     private ArrayList<Product> getListCatelogy_item(){
         ArrayList<Product> arrayList = new ArrayList<>();
         arrayList.add(new Product("aaa", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
