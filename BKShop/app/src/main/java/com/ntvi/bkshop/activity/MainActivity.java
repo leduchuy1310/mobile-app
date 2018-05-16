@@ -24,6 +24,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.content.Intent;
 
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,10 +42,15 @@ import com.ntvi.bkshop.model.CatelogyRow;
 import com.ntvi.bkshop.model.Product;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    static int a = 0;
     ViewFlipper viewFlipper;
 
     DrawerLayout drawerLayout;
@@ -64,69 +70,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // TEST CATELOGY;
-        test();
-       // catelogy();
-        //init();
+        //test();
+        catelogy();
+        init();
 
-      // ToolBarAction();
+      ToolBarAction();
 
 
 
-       //ViewFlipperOnRun();
+       ViewFlipperOnRun();
     }
 
-    private void test() {
-
-        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-
-        //Toast.makeText(this, "xxxxxxxx", Toast.LENGTH_SHORT).show();
-
-       /* ArrayList<Product> listProduct = new ArrayList<>();
-        listProduct.add(new Product("Laptop", 29.999, ""));
-        listProduct.add(new Product("Laptop2", 29.999, ""));
-        listProduct.add(new Product("Laptop3", 29.999, ""));
-        listProduct.add(new Product("Laptop4", 29.999, ""));
-        listProduct.add(new Product("Laptop5", 29.999, ""));
-
-        CatelogyRow catelogyRow = new CatelogyRow("Quần áo",
-                "https://png.icons8.com/material/50/clothes.png",
-                listProduct);
-        mData.child("products").push().setValue(catelogyRow);*/
-
-
-
-        mData.child("products").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                CatelogyRow catelogyRow = dataSnapshot.getValue(CatelogyRow.class);
-                Toast.makeText(MainActivity.this, catelogyRow.getmProducts().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-    }
 
     private void catelogy() {
 

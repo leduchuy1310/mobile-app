@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ntvi.bkshop.R;
+import com.ntvi.bkshop.activity.MainActivity;
 import com.ntvi.bkshop.adapter.CatelogyAdapter;
 import com.ntvi.bkshop.adapter.ProductAdapter;
 import com.ntvi.bkshop.model.CatelogyRow;
@@ -48,9 +49,6 @@ public class FragmentCatelogy extends Fragment {
         final CatelogyAdapter catelogyAdapter = new CatelogyAdapter(arrayList, getActivity().getApplicationContext());
         recyclerView.setAdapter(catelogyAdapter);
 
-        // Set List products
-        final ArrayList<Product> Listapp = getListCatelogy_item();
-
         // Get data
 
         DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
@@ -59,13 +57,52 @@ public class FragmentCatelogy extends Fragment {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 CatelogyRow catelogyRow =dataSnapshot.getValue(CatelogyRow.class);
-                arrayList.add(new CatelogyRow(catelogyRow.getmName(),
-                        catelogyRow.getmImage(),
-                        Listapp));
+                arrayList.add(catelogyRow);
 
                 catelogyAdapter.notifyDataSetChanged();
+
+                /* final ArrayList<Product> list = new ArrayList<>();
+
+                DatabaseReference child = FirebaseDatabase.getInstance().getReference().child("products/"+
+                        dataSnapshot.getKey()+
+                        "/mProducts");
+
+                child.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot data, String s) {
+                            Product product = data.getValue(Product.class);
+                            list.add(product);
+                            catelogyAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                //Toast.makeText(getActivity().getApplicationContext(), list.get(2).getmName(), Toast.LENGTH_SHORT).show();
+                CatelogyRow catelogyRow =dataSnapshot.getValue(CatelogyRow.class);
+               *//* arrayList.add(new CatelogyRow(catelogyRow.getmName(),
+                        catelogyRow.getmImage(),
+                        list));*//*
+               arrayList.add(catelogyRow);*/
 
             }
 
@@ -95,13 +132,4 @@ public class FragmentCatelogy extends Fragment {
 
     }
 
-    private ArrayList<Product> getListCatelogy_item(){
-        ArrayList<Product> arrayList = new ArrayList<>();
-        arrayList.add(new Product("aaa", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
-        arrayList.add(new Product("bbb", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
-        arrayList.add(new Product("aaa", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
-        arrayList.add(new Product("ccc", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
-        arrayList.add(new Product("ddd", 999.99f, "http://наклейка52.рф/images/product/s/1192651c35.jpg"));
-        return  arrayList;
-    };
 }
