@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        // TEST CATELOGY;
-        //test();
+
+       // test();
         catelogy();
         init();
 
@@ -79,6 +79,74 @@ public class MainActivity extends AppCompatActivity {
 
 
        ViewFlipperOnRun();
+    }
+
+    private void test() {
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference xxx = FirebaseDatabase.getInstance().getReference();
+        mData.child("products").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String item = dataSnapshot.getKey();
+                xxx.child("products/" + item).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot data, String s) {
+                        for (DataSnapshot postSnapshot: data.getChildren()) {
+                            //Toast.makeText(MainActivity.this, postSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                            Product product = postSnapshot.getValue(Product.class);
+                            Toast.makeText(MainActivity.this, product.getmInfo().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                if(item.equals("mProduct")){
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

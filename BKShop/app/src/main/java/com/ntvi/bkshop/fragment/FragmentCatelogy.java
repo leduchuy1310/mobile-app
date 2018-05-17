@@ -31,12 +31,14 @@ public class FragmentCatelogy extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.catelogy, container, false);
+
         initView(view);
 
         return  view;
     }
 
     public void initView(View view) {
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_Catelogy);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
