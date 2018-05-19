@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,8 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ProgressBar;
-
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,10 +28,11 @@ import com.ntvi.bkshop.R;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity{
 
  /**
-
+  * Id to identity READ_CONTACTS permission request.
+  */
 
  /**
   * A dummy authentication store containing known user names and passwords.
@@ -48,64 +46,49 @@ public class LoginActivity extends AppCompatActivity {
  private AutoCompleteTextView mEmailView;
  private EditText mPasswordView;
  private View progressBar;
- private View mLoginFormView;
- private TextView btn_sign_up;
- private FirebaseAuth auth;
+ private View SignUpForm;
  private TextView btn_forgot_password;
+ private FirebaseAuth auth;
  @Override
  protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
-  btn_sign_up = (TextView) findViewById(R.id.btn_sign_up);
-  btn_forgot_password = (TextView) findViewById(R.id.btn_forgot_password);
-  auth = FirebaseAuth.getInstance();
-
-  if (auth.getCurrentUser() != null) {
-   startActivity(new Intent(LoginActivity.this, MainActivity.class));
-   finish();
-  }
-  setContentView(R.layout.activity_login);
-  // Set up the login form.
+  setContentView(R.layout.activity_signup);
+  // Set up the signup form.
   mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-//  populateAutoComplete();
-
+  auth = FirebaseAuth.getInstance();
   mPasswordView = (EditText) findViewById(R.id.password);
+  btn_forgot_password = (TextView) findViewById(R.id.btn_forgot_password);
   mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
    @Override
    public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
     if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-     attemptLogin();
+     attempSignUp();
      return true;
     }
     return false;
    }
   });
 
-  Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-  mEmailSignInButton.setOnClickListener(new OnClickListener() {
+
+  Button btn_sign_up = (Button) findViewById(R.id.btn_sign_up);
+  btn_sign_up.setOnClickListener(new OnClickListener() {
    @Override
    public void onClick(View view) {
-    attemptLogin();
+    attempSignUp();
    }
   });
 
-  mLoginFormView = findViewById(R.id.login_form);
-  progressBar = findViewById(R.id.login_progress);
-
-
-
+  SignUpForm = findViewById(R.id.sign_up_form);
+  progressBar = findViewById(R.id.sign_up_progress);
  }
-
-  public void SignUpClick(View target){
-   startActivity(new Intent(LoginActivity.this, SignupActivity.class));
-  }
 
  public void ResetPasswordClick(View target){
-  startActivity(new Intent(LoginActivity.this, ForgotPassword.class));
+  startActivity(new Intent(SignupActivity.this, ForgotPassword.class));
  }
-
  /**
   * Callback received when a permissions request has been completed.
   */
+
 
 
  /**
@@ -113,15 +96,14 @@ public class LoginActivity extends AppCompatActivity {
   * If there are form errors (invalid email, missing fields, etc.), the
   * errors are presented and no actual login attempt is made.
   */
- private void attemptLogin() {
-
+ private void attempSignUp() {
   // Reset errors.
   mEmailView.setError(null);
   mPasswordView.setError(null);
 
   // Store values at the time of the login attempt.
-  final String email = mEmailView.getText().toString();
-  final String password = mPasswordView.getText().toString();
+  String email = mEmailView.getText().toString();
+  String password = mPasswordView.getText().toString();
 
   boolean cancel = false;
   View focusView = null;
@@ -152,32 +134,26 @@ public class LoginActivity extends AppCompatActivity {
    // Show a progress spinner, and kick off a background task to
    // perform the user login attempt.
    showProgress(true);
-   auth.signInWithEmailAndPassword(email, password)
-           .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+   auth.createUserWithEmailAndPassword(email, password)
+           .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+             Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+             progressBar.setVisibility(View.GONE);
              // If sign in fails, display a message to the user. If sign in succeeds
              // the auth state listener will be notified and logic to handle the
              // signed in user can be handled in the listener.
-             progressBar.setVisibility(View.GONE);
              if (!task.isSuccessful()) {
-              // there was an error
-              if (password.length() < 6) {
-               mPasswordView.setError(getString(R.string.minium_password));
-              } else {
-               Toast.makeText(LoginActivity.this, getString(R.string.auth_fail), Toast.LENGTH_LONG).show();
-              }
+              Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
+                      Toast.LENGTH_SHORT).show();
              } else {
-              Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-              startActivity(intent);
+              startActivity(new Intent(SignupActivity.this, MainActivity.class));
               finish();
              }
             }
            });
 
   }
-
-
  }
 
  private boolean isEmailValid(String email) {
@@ -201,12 +177,12 @@ public class LoginActivity extends AppCompatActivity {
   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
    int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-   mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-   mLoginFormView.animate().setDuration(shortAnimTime).alpha(
+   SignUpForm.setVisibility(show ? View.GONE : View.VISIBLE);
+   SignUpForm.animate().setDuration(shortAnimTime).alpha(
            show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
     @Override
     public void onAnimationEnd(Animator animation) {
-     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+     SignUpForm.setVisibility(show ? View.GONE : View.VISIBLE);
     }
    });
 
@@ -222,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
    // The ViewPropertyAnimator APIs are not available, so simply show
    // and hide the relevant UI components.
    progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-   mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+   SignUpForm.setVisibility(show ? View.GONE : View.VISIBLE);
   }
  }
 }
