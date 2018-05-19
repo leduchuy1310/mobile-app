@@ -1,40 +1,26 @@
 package com.ntvi.bkshop.activity;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManagerNonConfig;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.content.Intent;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import com.ntvi.bkshop.model.Advertisement;
+import com.ntvi.bkshop.adapter.MyPagerAdapter;
 
 import com.ntvi.bkshop.R;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
+
+    enum tab_count {HOME,CATE,CART};
 
     ViewFlipper viewFlipper;
 
@@ -58,9 +44,32 @@ public class MainActivity extends AppCompatActivity {
 
         ToolBarAction();
 
+        tab_setting();
 
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
-        ViewFlipperOnRun();
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
     private void init(){
 
@@ -78,23 +87,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void tab_setting(){
-
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return new Fragment();
-                }
-                return null;
-            }
-
-            @Override
-            public int getCount() {
-                return 0;
-            }
-        });
-        tabLayout.setupWithViewPager(viewPager);
+        FragmentManager manager = getSupportFragmentManager();
+        MyPagerAdapter adapter = new MyPagerAdapter(manager);
+        viewPager.setAdapter(adapter);
+        viewPager.setPageTransformer(false,null);
+        //Toast.makeText(getApplicationContext(),String.valueOf(adapter.getCount()),Toast.LENGTH_SHORT).show();
+        tabLayout.setupWithViewPager(viewPager,true);
+        if(tabLayout != null){
+            TabLayout.Tab home = tabLayout.getTabAt(0);
+            TabLayout.Tab cate = tabLayout.getTabAt(1);
+            TabLayout.Tab cart = tabLayout.getTabAt(2);
+            if(home != null)
+                home.setIcon(R.drawable.home_selector);
+            if(cate != null)
+                cate.setIcon(R.drawable.cate_selector);
+            if(cart != null)
+                cart.setIcon(R.drawable.cart_selector);
+        }
+        //tabLayout.setBackgroundColor(getResources().getColor(R.color.grey_color,null));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setTabTextColors(R.color.grey_color,R.color.green_color);
+        //tabLayout.setupWithViewPager(viewPager,true);
     }
     private  void ToolBarAction(){
         toolbar_top.inflateMenu(R.menu.main_top);
@@ -113,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                                     sleep(0);
                                     Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                                     startActivity(intent);
-                                    finish();
+                                    //finish();
 
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -130,65 +143,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-    }
-    private  void ViewFlipperOnRun(){
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference myRef = database.getReference("advertisement");
-
-        myRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //get data to Object
-                Advertisement value = dataSnapshot.getValue(Advertisement.class);
-                //create a ImageView
-                ImageView imageView = new ImageView(getApplicationContext());
-                //load image from url to ImageView using Picasso
-                Picasso.with(getApplicationContext()).load(value.image).into(imageView);
-                //FIT_XY
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                //onclick to url
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse("https://www.google.com"));
-                        startActivity(i);
-                    }
-                });
-                //add image to viewFipper
-                viewFlipper.addView(imageView);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        //5000 miliseconds change
-        viewFlipper.setFlipInterval(5000);
-        //auto start
-        viewFlipper.setAutoStart(true);
-        //animation right in & out
-        Animation animation_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_right_view_in);
-        Animation animation_out=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_right_view_out);
-        viewFlipper.setInAnimation(animation_in);
-        viewFlipper.setOutAnimation(animation_out);
     }
 }

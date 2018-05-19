@@ -8,7 +8,7 @@
         android:iconTint="@color/green_color"
         android:iconTintMode="screen"
         android:title="@string/btn_home"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:title="@string/btn_cate"
         android:id="@+id/action_cate"

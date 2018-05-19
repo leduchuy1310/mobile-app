@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ntvi.bkshop">
 <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+
     <application
+        android:fullBackupContent="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_splash"
         android:label="@string/app_name"
@@ -21,6 +27,11 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.SearchActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login"/>
     </application>
 
 </manifest>
