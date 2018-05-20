@@ -71,15 +71,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-       // test();
-        catelogy();
+        ChooseITem();
         init();
 
-      ToolBarAction();
+        ToolBarAction();
 
 
 
-       ViewFlipperOnRun();
+        ViewFlipperOnRun();
+        tab_setting();
     }
 
     private void test() {
@@ -151,13 +151,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void catelogy() {
+    private void ChooseITem() {
 
         android.app.FragmentManager  fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        FragmentCatelogy fragmentCatelogy = new FragmentCatelogy();
-        fragmentTransaction.add(R.id.activity_main, fragmentCatelogy);
 
 
         Intent intent = getIntent();
@@ -168,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentChoose fragmentChoose = new FragmentChoose();
 
             fragmentChoose.setArguments(bundle);
-            fragmentTransaction.replace(R.id.activity_main, fragmentChoose);
+            fragmentTransaction.replace(R.id.addChoose, fragmentChoose);
 
 
         }
@@ -196,15 +194,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
-                    case 0:
-                        return new Fragment();
+                    case 0:  FragmentCatelogy fragmentCatelogy = new FragmentCatelogy();
+                        return fragmentCatelogy;
+
                 }
                 return null;
             }
 
             @Override
             public int getCount() {
-                return 0;
+                return 1;
             }
         });
         tabLayout.setupWithViewPager(viewPager);

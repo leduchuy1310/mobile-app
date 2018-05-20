@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="100dp"
+    android:orientation="vertical" android:layout_width="80dp"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+    android:layout_margin="4dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="6dp">
+        android:layout_margin="4dp"
+        >
 
         <ImageView
-            android:layout_width="88dp"
-            android:layout_height="88dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:id="@+id/img_Catelogy_Item_Avatar"
             android:src="@drawable/common_google_signin_btn_icon_dark"/>
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="25dp"
             android:id="@+id/txt_Catelogy_Item_Name"
             android:layout_marginStart="4dp"
             android:text="Item"
+            android:textSize="12sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
        <LinearLayout
-           android:weightSum="5"
+           android:weightSum="10"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal">
            <TextView
-               android:layout_width="66dp"
+               android:layout_weight="7"
+               android:layout_width="0dp"
                android:layout_height="wrap_content"
                android:id="@+id/txt_Catelogy_Item_Prices"
                android:text="999.999"
 
                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-               android:textSize="12sp"/>
+               android:textSize="10sp"/>
            <ImageButton
+               android:layout_weight="3"
                android:background="@null"
-               android:layout_width="22dp"
+               android:layout_width="0dp"
                android:layout_height="22dp"
                android:scaleType="fitCenter"
                android:src="@drawable/icon8_cart"/>

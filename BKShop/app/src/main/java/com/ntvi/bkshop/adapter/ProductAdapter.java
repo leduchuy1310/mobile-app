@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ntvi.bkshop.R;
 import com.ntvi.bkshop.activity.MainActivity;
@@ -57,6 +58,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 intent.putExtra("product_adapter", bundle);
 
                 context.startActivity(intent);
+                //Toast.makeText(context, "xxx", Toast.LENGTH_SHORT).show();
 
             }
         });
