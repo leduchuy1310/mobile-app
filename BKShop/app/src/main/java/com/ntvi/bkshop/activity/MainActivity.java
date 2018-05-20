@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ntvi.bkshop.fragment.FragmentCatelogy;
+import com.ntvi.bkshop.fragment.FragmentChoose;
 import com.ntvi.bkshop.model.Advertisement;
 
 import com.ntvi.bkshop.R;
@@ -157,6 +158,20 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentCatelogy fragmentCatelogy = new FragmentCatelogy();
         fragmentTransaction.add(R.id.activity_main, fragmentCatelogy);
+
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("product_adapter");
+
+        if(bundle != null){
+
+            FragmentChoose fragmentChoose = new FragmentChoose();
+
+            fragmentChoose.setArguments(bundle);
+            fragmentTransaction.replace(R.id.activity_main, fragmentChoose);
+
+
+        }
         fragmentTransaction.commit();
     }
 
