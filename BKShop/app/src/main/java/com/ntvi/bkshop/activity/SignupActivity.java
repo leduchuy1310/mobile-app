@@ -4,10 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,7 +23,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ntvi.bkshop.R;
+import com.ntvi.bkshop.model.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -43,6 +46,7 @@ public class SignupActivity extends AppCompatActivity{
   */
 
  // UI references.
+ String email;
  private AutoCompleteTextView mEmailView;
  private EditText mPasswordView;
  private View progressBar;
@@ -102,7 +106,7 @@ public class SignupActivity extends AppCompatActivity{
   mPasswordView.setError(null);
 
   // Store values at the time of the login attempt.
-  String email = mEmailView.getText().toString();
+  email = mEmailView.getText().toString();
   String password = mPasswordView.getText().toString();
 
   boolean cancel = false;
@@ -147,8 +151,19 @@ public class SignupActivity extends AppCompatActivity{
               Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                       Toast.LENGTH_SHORT).show();
              } else {
-              startActivity(new Intent(SignupActivity.this, MainActivity.class));
-              finish();
+              User user = new User(email);
+              DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+              final String UID = auth.getCurrentUser().getUid();
+              databaseReference.child(UID).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+               @Override
+               public void onComplete(@NonNull Task<Void> task) {
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                intent.putExtra("UID", UID);
+                startActivity(intent);
+                finish();
+               }
+              });
+
              }
             }
            });

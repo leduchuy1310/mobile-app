@@ -4,18 +4,16 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
-
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +44,6 @@ public class ForgotPassword extends AppCompatActivity{
  private View forgotForm;
  private Button btn_forgot_password;
  private FirebaseAuth auth;
- private TextView btn_login;
 
  @Override
  protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +65,6 @@ public class ForgotPassword extends AppCompatActivity{
   forgotForm = findViewById(R.id.forgot_form);
   progressBar = findViewById(R.id.login_progress);
  }
-
- public void SignInClick(View target){
-   startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
-   finish();
- }
-
-
-
  /**
   * Callback received when a permissions request has been completed.
   */
