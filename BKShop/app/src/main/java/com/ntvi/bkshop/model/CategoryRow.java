@@ -5,11 +5,14 @@ import java.util.List;
 public class CategoryRow {
     private String mName;
     private String mImage;
-    private List <Product> mProducts;
+    private List <Product> mProducts = null;
 
     public CategoryRow() {
     }
-
+    public CategoryRow(String mName, String mImage) {
+        this.mName = mName;
+        this.mImage = mImage;
+    }
     public CategoryRow(String mName, String mImage, List<Product> mProducts) {
         this.mName = mName;
         this.mImage = mImage;

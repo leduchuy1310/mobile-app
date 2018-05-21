@@ -50,6 +50,7 @@ public class FragmentCategory extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 CategoryRow categoryRow =dataSnapshot.getValue(CategoryRow.class);
                 arrayList.add(categoryRow);
+
                 categoryAdapter.notifyDataSetChanged();
             }
 

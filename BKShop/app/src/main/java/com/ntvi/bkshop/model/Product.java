@@ -1,21 +1,32 @@
 package com.ntvi.bkshop.model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String mName;
     private double mPrice;
     private String mImage;
     private int mNum;
     private String mInfo;
-
+    private String mTag;
     public Product() {
     }
 
-    public Product(String mName, double mPrice, String mImage, int mNum, String mInfo) {
+    public Product(String mName, double mPrice, String mImage, int mNum, String mInfo, String mtag) {
         this.mName = mName;
         this.mPrice = mPrice;
         this.mImage = mImage;
         this.mNum = mNum;
         this.mInfo = mInfo;
+        this.mTag = mtag;
+    }
+
+    public String getmTag() {
+        return mTag;
+    }
+
+    public void setmTag(String mTag) {
+        this.mTag = mTag;
     }
 
     public String getmName() {

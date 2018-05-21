@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.ntvi.bkshop.fragment.FragmentCart;
 import com.ntvi.bkshop.fragment.FragmentHome;
 import com.ntvi.bkshop.fragment.FragmentCategory;
 
@@ -25,7 +26,7 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
                 frag=new FragmentCategory();
                 break;
             case 2:
-                frag=new FragmentHome();
+                frag= new FragmentCart();
                 break;
         }
         return frag;
