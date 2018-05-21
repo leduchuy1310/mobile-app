@@ -54,21 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread mainThread = new Thread(){
-                    @Override
-                    public void run() {
-                        try {
-                            sleep(0);
-                            Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                mainThread.start();
+                finish();
             }
         });
     }
