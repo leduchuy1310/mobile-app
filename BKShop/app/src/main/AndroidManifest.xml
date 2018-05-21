@@ -39,7 +39,9 @@
             android:label="@string/title_activity_signup" />
         <activity
             android:name=".activity.ForgotPassword"
-            android:label="@string/title_activity_forgot_password"></activity>
+            android:label="@string/title_activity_forgot_password" />
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.AppInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -2,16 +2,16 @@ package com.ntvi.bkshop.activity;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentManagerNonConfig;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -23,19 +23,24 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.content.Intent;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.google.firebase.database.ValueEventListener;
 import com.ntvi.bkshop.model.Advertisement;
 
 import com.ntvi.bkshop.R;
+import com.ntvi.bkshop.model.User;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+public class MainActivity extends AppCompatActivity {
+    String uid;
     ViewFlipper viewFlipper;
 
     DrawerLayout drawerLayout;
@@ -43,26 +48,82 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     TabLayout tabLayout;
+    NavigationView navigationView;
+
 
     android.support.v7.widget.Toolbar  toolbar_top;
 
+    CircleImageView profile_image;
+
+    TextView txtName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
+        uid = getIntent().getStringExtra("UID");
         init();
-
         ToolBarAction();
-
-
-
         ViewFlipperOnRun();
+        LoadUserProfile();
+        ActionSidebar();
+    }
+
+    private  void ActionSidebar(){
+        getSupportActionBar();
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_app_info:
+
+                    case R.id.action_edit_info:
+                        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                        intent.putExtra("uid", uid);
+                        startActivity(intent);
+                    case R.id.action_sign_out:
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent1 = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent1);
+                }
+                return false;
+            }
+        });
+
+
+    }
+    private void LoadUserProfile(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                showData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void showData (DataSnapshot dataSnapshot){
+
+        User user = new User();
+        for(DataSnapshot ds : dataSnapshot.getChildren()){
+            Log.d("sad", ds.toString());
+            Log.d("sas", uid);
+            if ( ds.getKey().equals(uid)){
+                user.setEmail(ds.getValue(User.class).getEmail());
+                Toast.makeText(getApplication(),ds.getValue(User.class).toString(), Toast.LENGTH_SHORT).show();
+                txtName.setText(user.getEmail());
+                break;
+            }
+        }
     }
     private void init(){
+        navigationView=(NavigationView)findViewById(R.id.navigationView);
 
         viewPager =(ViewPager)findViewById(R.id.viewPager_main) ;
 
@@ -70,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar_top= (Toolbar)findViewById(R.id.toolbar_main);
 
+        profile_image = (CircleImageView) findViewById(R.id.profile_image);
+        txtName = (TextView) findViewById(R.id.txtName);
 
         viewFlipper=(ViewFlipper)findViewById(R.id.viewflipper_main);
 
@@ -105,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.action_search:
-//                        Toast.makeText(getApplicationContext(), "Search view", Toast.LENGTH_SHORT).show();
                         Thread searchThread = new Thread(){
                         @Override
                             public void run() {
@@ -123,7 +185,8 @@ public class MainActivity extends AppCompatActivity {
                         searchThread.start();
                         return true;
                     case R.id.action_userprofile:
-                        Toast.makeText(getApplicationContext(), "User profile", Toast.LENGTH_SHORT).show();
+                        drawerLayout.openDrawer(Gravity.END);
+                        navigationView.setVisibility(View.VISIBLE);
                         return true;
                 }
 

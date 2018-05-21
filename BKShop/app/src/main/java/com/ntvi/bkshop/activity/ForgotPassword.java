@@ -46,7 +46,6 @@ public class ForgotPassword extends AppCompatActivity{
  private View forgotForm;
  private Button btn_forgot_password;
  private FirebaseAuth auth;
- private TextView btn_login;
 
  @Override
  protected void onCreate(Bundle savedInstanceState) {
@@ -68,14 +67,6 @@ public class ForgotPassword extends AppCompatActivity{
   forgotForm = findViewById(R.id.forgot_form);
   progressBar = findViewById(R.id.login_progress);
  }
-
- public void SignInClick(View target){
-   startActivity(new Intent(ForgotPassword.this, LoginActivity.class));
-   finish();
- }
-
-
-
  /**
   * Callback received when a permissions request has been completed.
   */
