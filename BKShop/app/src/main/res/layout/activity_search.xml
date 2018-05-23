@@ -9,9 +9,10 @@
         android:id="@+id/drawerlayout_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_search"
                 android:layout_width="match_parent"
@@ -20,6 +21,35 @@
                 android:layout_alignParentTop="true"
                 style="@style/SearchToolbar">
             </android.support.v7.widget.Toolbar>
-        </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:layout_margin="16dp">
+                <TextView
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green_color"
+                    android:text="Tìm kiếm sản phẩm"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edt_search"
+                    android:gravity="center"
+                    android:hint="Nhập tên sản phẩm..."
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rcv_search">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+
+        </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
