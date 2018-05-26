@@ -37,14 +37,27 @@ public class ItemRowAdapter extends RecyclerView.Adapter<ItemRowAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Picasso.with(context).load(arrayList.get(position).getmImage()).
-                error(R.drawable.ic_launcher_background).
-                into(holder.imageView);
+       // Picasso.with(context).load(arrayList.get(position).getmImage()).into(holder.imageView);
+        Picasso.with(context).load(arrayList.get(position).getmImage()).into(holder.imageView);
         holder.txtTitle.setText(arrayList.get(position).getmTitle());
-        holder.txtDate.setText(arrayList.get(position).getmDate());
-        holder.txtInfo.setText(arrayList.get(position).getmInfo());
-        holder.txtPrice.setText(String.valueOf(arrayList.get(position).getmPrices()));
-        holder.txtAddress.setText(arrayList.get(position).getmAddress());
+        holder.txtDate.setText("Ngày đăng: " +arrayList.get(position).getmDate());
+        if (arrayList.get(position).getmInfo().length() == 0){
+            holder.txtInfo.setText("Thông tin chưa cập nhật...");
+        }
+        else {
+            holder.txtInfo.setText(arrayList.get(position).getmInfo());
+        }
+
+        if (String.valueOf(arrayList.get(position).getmPrices()).length() == 0){
+            holder.txtPrice.setText("Giá: CHƯA CẬP NHẬT");
+        }
+        if (arrayList.get(position).getmAddress().length() == 0){
+            holder.txtAddress.setText("CHƯA CẬP NHẬT");
+        }
+        else {
+            holder.txtAddress.setText("Địa chỉ" + arrayList.get(position).getmAddress());
+        }
+
     }
 
     @Override

@@ -7,17 +7,19 @@ public class ItemRow {
     private String mInfo;
     private String mImage;
     private String mAddress;
+    private String mLink;
 
     public ItemRow() {
     }
 
-    public ItemRow(String mTitle, String mDate, double mPrices, String mInfo, String mImage, String mAddress) {
+    public ItemRow(String mTitle, String mDate, double mPrices, String mInfo, String mImage, String mAddress, String mLink) {
         this.mTitle = mTitle;
         this.mDate = mDate;
         this.mPrices = mPrices;
         this.mInfo = mInfo;
         this.mImage = mImage;
         this.mAddress = mAddress;
+        this.mLink = mLink;
     }
 
     public String getmTitle() {
@@ -66,5 +68,9 @@ public class ItemRow {
 
     public void setmAddress(String mAddress) {
         this.mAddress = mAddress;
+    }
+
+    public void setmLink(String mLink) {
+        this.mLink = mLink;
     }
 }
