@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +59,7 @@ public class ItemRowAdapter extends RecyclerView.Adapter<ItemRowAdapter.ViewHold
             holder.txtAddress.setText("Địa chỉ" + arrayList.get(position).getmAddress());
         }
 
+
     }
 
     @Override
@@ -83,4 +85,5 @@ public class ItemRowAdapter extends RecyclerView.Adapter<ItemRowAdapter.ViewHold
             txtPrice = itemView.findViewById(R.id.txt_item_prices);
         }
     }
+
 }

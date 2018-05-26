@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
          recyclerView = findViewById(R.id.rvc_list_item);
          recyclerView.setHasFixedSize(true);
-
-
     }
 
     class ReadData extends AsyncTask<String, Integer, String>{
